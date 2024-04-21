@@ -1,4 +1,4 @@
-﻿using SteganographyTool.Scripts;
+﻿using SteganographyTool.MenuOptions;
 using System.Text;
 
 

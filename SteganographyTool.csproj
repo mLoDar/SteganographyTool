@@ -11,4 +11,8 @@
     <None Remove="Scripts\cqimebc1.st4~" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace SteganographyTool.Scripts
+﻿namespace SteganographyTool.MenuOptions
 {
     internal class HideInformation
     {
