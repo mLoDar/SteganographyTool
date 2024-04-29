@@ -70,13 +70,13 @@ namespace SteganographyTool.Scripts
             string binaryInfo = BinaryHelper.TextToBinary(formattedInfo);
             string binaryContent = BinaryHelper.TextToBinary(contentToHide);
             
-            Bitmap originalImage;
+            Bitmap providedImage;
             Bitmap modifiedImage;
 
             try
             {
-                originalImage = new(imagePath);
-                modifiedImage = new(originalImage);
+                providedImage = new(imagePath);
+                modifiedImage = new(providedImage);
             }
             catch
             {
@@ -166,9 +166,117 @@ namespace SteganographyTool.Scripts
             {
                 return $"Failed to save image to '{newImagePath}'.";
             }
-            
+
+
+
+            providedImage.Dispose();
+            modifiedImage.Dispose();
+
+
 
             return string.Empty;
+        }
+
+        internal static string? ReadTextFromImage(string? imagePath)
+        {
+            if (imagePath == null)
+            {
+                return "Invalid argument provided.";
+            }
+
+            if (ValidImagePath(imagePath) == false)
+            {
+                return "Invalid image path provided.";
+            }
+
+
+
+            Bitmap providedImage = new(imagePath);
+
+            string binaryInfo = string.Empty;
+
+            for (int x = 0; x < providedImage.Width; x++)
+            {
+                Color pixelColor = providedImage.GetPixel(x, 0);
+
+                int blue = pixelColor.B;
+
+                string binaryBlue = Convert.ToString(blue, 2).PadLeft(8, '0');
+                binaryInfo += binaryBlue.Last();
+            }
+
+            string contentInfo = BinaryHelper.BinaryToText(binaryInfo);
+            
+            
+
+            string contentLength = string.Empty;
+
+            string contentLocationX = string.Empty;
+            string contentLocationY = string.Empty;
+
+            try
+            {
+                string contentLocation = contentInfo.Split('|')[1];
+                contentLength = contentInfo.Split('|')[2];
+
+                contentLocationX = contentLocation.Split(';')[0];
+                contentLocationY = contentLocation.Split(';')[1];
+            }
+            catch
+            {
+                return "Invalid content info within image. Failed to split info.";
+            }
+
+
+
+            if (int.TryParse(contentLength, out int lenghtCounter) == false)
+            {
+                return "Invalid content info within image. Content length is not a number.";
+            }
+
+            if (int.TryParse(contentLocationX, out int currentPositionX) == false)
+            {
+                return "Invalid content info within image. Content x-location is not a number.";
+            }
+
+            if (int.TryParse(contentLocationY, out int currentPositionY) == false)
+            {
+                return "Invalid content info within image. Content y-location is not a number.";
+            }
+
+
+
+            string contentInBinary = string.Empty;
+
+
+
+            if (currentPositionY <= 0)
+            {
+                currentPositionY = 1;
+            }
+
+            for (int i = lenghtCounter; i > 0; i--)
+            {
+                if (currentPositionX >= providedImage.Width)
+                {
+                    currentPositionX = 0;
+                    currentPositionY++;
+                }
+
+                Color currentPixelColor = providedImage.GetPixel(currentPositionX, currentPositionY);
+
+                contentInBinary += Convert.ToString(currentPixelColor.B, 2).PadLeft(8, '0').Last();
+
+                currentPositionX++;
+            }
+
+
+
+            providedImage.Dispose();
+
+            string foundContent = BinaryHelper.BinaryToText(contentInBinary);
+
+            return $"[SUCCESS]{foundContent}";
         }
     }
 }

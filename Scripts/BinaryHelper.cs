@@ -23,6 +23,11 @@ namespace SteganographyTool.Scripts
 
         internal static string BinaryToText(string binary)
         {
+            while (binary.Length % 8 != 0)
+            {
+                binary += '0';
+            }
+
             StringBuilder textBuilder = new();
 
             for (int i = 0; i < binary.Length; i += 8)
