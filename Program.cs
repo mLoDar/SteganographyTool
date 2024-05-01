@@ -1,5 +1,7 @@
-﻿using SteganographyTool.MenuOptions;
-using System.Text;
+﻿using System.Text;
+
+using SteganographyTool.MenuOptions;
+using SteganographyTool.Scripts;
 
 
 
@@ -12,7 +14,7 @@ namespace SteganographyTool
         static int selectedOption = 1;
 
 
-
+        
 
 
         static void Main()
@@ -24,6 +26,8 @@ namespace SteganographyTool
             Console.Title = "Steganography Tool";
             Console.OutputEncoding = Encoding.UTF8;
             Console.CursorVisible = false;
+
+            UserIntefaceHelper.DisableConsoleResizing();
 
             Console.Clear();
 
@@ -69,11 +73,11 @@ namespace SteganographyTool
         static void DrawUi()
         {
             string[] options =
-            {
+            [
                 "Hide information",
                 "Read information",
                 "Show documentation",
-            };
+            ];
 
 
 
