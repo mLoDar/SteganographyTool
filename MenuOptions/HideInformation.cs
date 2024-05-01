@@ -33,7 +33,7 @@ namespace SteganographyTool.MenuOptions
             UserIntefaceHelper.ClearLine();
 
             Console.SetCursorPosition(0, 10);
-
+            
 
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -41,9 +41,9 @@ namespace SteganographyTool.MenuOptions
             Console.WriteLine("             └──────");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("               > ");
-
+            
             Console.ForegroundColor = ConsoleColor.White;
-            string? imagePath = Console.ReadLine();
+            string? imagePath = UserIntefaceHelper.ReadLineImageLivePreview();
             
             if (FileHandler.ValidImagePath(imagePath) == false)
             {
@@ -84,7 +84,7 @@ namespace SteganographyTool.MenuOptions
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-
+            
 
 
             string? result = FileHandler.WriteTextToImage(imagePath, contentToHide);
@@ -98,7 +98,7 @@ namespace SteganographyTool.MenuOptions
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("             [{0}SUCCESS{1}]", "\u001b[92m", "\u001b[97m");
-                Console.WriteLine("             The modified image was saved to the folder of the original image.", result);
+                Console.WriteLine("             The modified image was saved to the folder of the original image.");
             }
 
 

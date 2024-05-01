@@ -43,7 +43,7 @@ namespace SteganographyTool.MenuOptions
             Console.Write("               > ");
 
             Console.ForegroundColor = ConsoleColor.White;
-            string? imagePath = Console.ReadLine();
+            string? imagePath = UserIntefaceHelper.ReadLineImageLivePreview();
 
             if (FileHandler.ValidImagePath(imagePath) == false)
             {
@@ -62,7 +62,7 @@ namespace SteganographyTool.MenuOptions
 
             if (result?.StartsWith("[SUCCESS]") == true)
             {
-                result = result.Substring(9, result.Length - 9);
+                result = result[9..];
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("             [{0}SUCCESS{1}]", "\u001b[92m", "\u001b[97m");
@@ -110,6 +110,5 @@ namespace SteganographyTool.MenuOptions
             Console.WriteLine("             {0}──────────────────────────────────────{1}", "\u001b[94m", "\u001b[97m");
             Console.WriteLine("                                                   ");
         }
-
     }
 }
