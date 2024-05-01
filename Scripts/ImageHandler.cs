@@ -65,8 +65,20 @@ namespace SteganographyTool.Scripts
 
 
 
-        internal static void DrawImage(string imagePath, Point imageLocation)
+        internal static void DrawImage(string? imagePath, Point imageLocation)
         {
+            if (imagePath == null)
+            {
+                return;   
+            }
+
+            if (FileHandler.ValidImagePath(imagePath) == false)
+            {
+                return;
+            }
+
+
+
             Size imageSize = new(14, 7);
 
             using Graphics g = Graphics.FromHwnd(GetConsoleWindow());

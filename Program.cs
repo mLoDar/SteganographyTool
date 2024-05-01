@@ -5,6 +5,10 @@ using SteganographyTool.Scripts;
 
 
 
+#pragma warning disable CA1416 // Validate platform compatibility
+
+
+
 
 
 namespace SteganographyTool
@@ -28,6 +32,8 @@ namespace SteganographyTool
             Console.CursorVisible = false;
 
             UserIntefaceHelper.DisableConsoleResizing();
+
+            Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
 
             Console.Clear();
 

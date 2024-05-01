@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Drawing;
+using System.Text;
 
 using SteganographyTool.Scripts;
 
@@ -43,12 +44,14 @@ namespace SteganographyTool.MenuOptions
             Console.Write("               > ");
             
             Console.ForegroundColor = ConsoleColor.White;
-            string? imagePath = UserIntefaceHelper.ReadLineImageLivePreview();
+            string? imagePath = Console.ReadLine();
             
             if (FileHandler.ValidImagePath(imagePath) == false)
             {
                 goto LabelReadImagePath;
             }
+
+            ImageHandler.DrawImage(imagePath, new Point(80, 4));
 
 
 
